@@ -1259,10 +1259,10 @@ class GeckoEngineSession(
                         it.isPhone() -> HitResult.PHONE(it)
                         it.isEmail() -> HitResult.EMAIL(it)
                         it.isGeoLocation() -> HitResult.GEO(it)
-                        else -> HitResult.UNKNOWN(it)
+                        else -> HitResult.UNKNOWN(it, title)
                     }
                 } ?: uri?.let {
-                    HitResult.UNKNOWN(it)
+                    HitResult.UNKNOWN(it, title)
                 }
             }
             else -> HitResult.UNKNOWN("")
