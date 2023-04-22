@@ -72,6 +72,7 @@ data class ContextMenuCandidate(
                 snackbarDelegate,
             ),
             createCopyLinkCandidate(context, snackBarParentView, snackbarDelegate),
+            createCopyLinkTextCandidate(context, snackBarParentView, snackbarDelegate),
             createDownloadLinkCandidate(context, contextMenuUseCases),
             createShareLinkCandidate(context),
             createShareImageCandidate(context, contextMenuUseCases),
@@ -547,6 +548,37 @@ data class ContextMenuCandidate(
                     snackbarDelegate,
                 )
             },
+        )
+
+        /**
+         * Context Menu item: "Copy Link Text".
+         *
+         * @param context [Context] used for various system interactions.
+         * @param snackBarParentView The view in which to find a suitable parent for displaying the `Snackbar`.
+         * @param snackbarDelegate [SnackbarDelegate] used to actually show a `Snackbar`.
+         * @param additionalValidation Callback for the final validation in deciding whether this menu option
+         * will be shown. Will only be called if all the intrinsic validations passed.
+         */
+        fun createCopyLinkTextCandidate(
+            context: Context,
+            snackBarParentView: View,
+            snackbarDelegate: SnackbarDelegate = DefaultSnackbarDelegate(),
+            additionalValidation: (SessionState, HitResult) -> Boolean = { _, _ -> true },
+        ) = ContextMenuCandidate(
+            id = "mozac.feature.contextmenu.copy_link_text",
+            label = context.getString(R.string.mozac_feature_contextmenu_copy_link_text),
+            showFor = { tab, hitResult ->
+                hitResult is HitResult.UNKNOWN && !hitResult.title.isNullOrBlank() &&
+                    additionalValidation(tab, hitResult)
+            },
+            action = { _, hitResult ->
+                val hitResultUnknown = hitResult as HitResult.UNKNOWN
+                clipPlainText(
+                    context, hitResultUnknown.title.toString(), hitResultUnknown.title.toString(),
+                    R.string.mozac_feature_contextmenu_snackbar_link_text_copied, snackBarParentView,
+                    snackbarDelegate
+                )
+            }
         )
 
         /**
