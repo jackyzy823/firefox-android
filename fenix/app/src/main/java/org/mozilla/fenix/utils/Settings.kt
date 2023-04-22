@@ -1610,6 +1610,14 @@ class Settings(private val appContext: Context) : PreferencesHolder {
     }
 
     /**
+     * Indicates if decoding url when copying
+     */
+    var decodeUrlsOnCopyFeature by booleanPreference(
+        key = appContext.getPreferenceKey(R.string.pref_key_decode_urls_on_copy),
+        default = false ,
+    )
+
+    /**
      * Get the current mode for how https-only is enabled.
      */
     fun getHttpsOnlyMode(): HttpsOnlyMode {

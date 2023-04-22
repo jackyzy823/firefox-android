@@ -24,7 +24,9 @@ import org.mozilla.fenix.R
 import org.mozilla.fenix.components.FenixSnackbar
 import org.mozilla.fenix.databinding.BrowserToolbarPopupWindowBinding
 import org.mozilla.fenix.ext.components
+import java.io.UnsupportedEncodingException
 import java.lang.ref.WeakReference
+import java.net.URLDecoder
 
 object ToolbarPopupWindow {
     fun show(
@@ -64,10 +66,13 @@ object ToolbarPopupWindow {
         if (copyVisible) {
             binding.copy.setOnClickListener { copyView ->
                 popupWindow.dismiss()
-                clipboard.text = getUrlForClipboard(
+                val decodeUrlsOnCopyFeature = copyView.context.components.settings.decodeUrlsOnCopyFeature
+                val text = getUrlForClipboard(
                     copyView.context.components.core.store,
                     customTabId,
                 )
+                clipboard.text = if (decodeUrlsOnCopyFeature) try { URLDecoder.decode(text, "UTF-8") }
+                                    catch(e: UnsupportedEncodingException){ text } else { text }
 
                 view.get()?.let { toolbarView ->
                     FenixSnackbar.make(

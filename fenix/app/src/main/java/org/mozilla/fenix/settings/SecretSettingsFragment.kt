@@ -66,6 +66,12 @@ class SecretSettingsFragment : PreferenceFragmentCompat() {
         requirePreference<Preference>(R.string.pref_key_custom_sponsored_stories_parameters).apply {
             isVisible = Config.channel.isNightlyOrDebug
         }
+
+        requirePreference<SwitchPreference>(R.string.pref_key_decode_urls_on_copy).apply {
+            isVisible = true
+            isChecked = context.settings().decodeUrlsOnCopyFeature
+            onPreferenceChangeListener = SharedPreferenceUpdater()
+        }
     }
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
