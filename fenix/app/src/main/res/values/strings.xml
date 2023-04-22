@@ -212,6 +212,8 @@
     <!-- Browser Toolbar -->
     <!-- Content description for the Home screen button on the browser toolbar -->
     <string name="browser_toolbar_home">Home screen</string>
+    <!-- Text for context menu item to bookmark the link -->
+    <string name="mozac_feature_contextmenu_open_add_bookmark">Bookmark link</string>
 
     <!-- Locale Settings Fragment -->
     <!-- Content description for tick mark on selected language -->

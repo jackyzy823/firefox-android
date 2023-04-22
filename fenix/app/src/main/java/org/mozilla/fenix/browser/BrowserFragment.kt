@@ -474,7 +474,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         ) + ContextMenuCandidate.createOpenInExternalAppCandidate(
             requireContext(),
             contextMenuCandidateAppLinksUseCases,
-        )
+        ) + createAddBookmarkCandidate(requireContext())
     }
 
     /**

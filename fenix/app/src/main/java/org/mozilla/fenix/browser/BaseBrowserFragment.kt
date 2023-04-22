@@ -55,6 +55,7 @@ import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.thumbnails.BrowserThumbnails
+import mozilla.components.concept.engine.HitResult
 import mozilla.components.concept.engine.permission.SitePermissions
 import mozilla.components.concept.engine.prompt.ShareData
 import mozilla.components.feature.accounts.FxaCapability
@@ -1620,4 +1621,17 @@ abstract class BaseBrowserFragment :
 
         return isValidStatus && isSameTab
     }
+
+    internal fun createAddBookmarkCandidate(context: Context) = ContextMenuCandidate(
+        id = "mozac.feature.contextmenu.add_bookmark",
+        label = context.getString(R.string.mozac_feature_contextmenu_open_add_bookmark),
+        showFor = { _, hitResult ->
+            hitResult is HitResult.UNKNOWN
+        },
+        action = { _, hitResult ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                bookmarkTapped(hitResult.src, (hitResult as HitResult.UNKNOWN).title ?: "")
+            }
+        }
+    )
 }
