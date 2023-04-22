@@ -58,21 +58,32 @@
 
     </androidx.cardview.widget.CardView>
 
+    <ImageView
+        android:id="@+id/mozac_browser_tabstray_favicon_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+	android:layout_marginStart="12dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toEndOf="@id/mozac_browser_tabstray_card"
+        app:layout_constraintTop_toTopOf="@id/mozac_browser_tabstray_title"
+	app:layout_constraintBottom_toTopOf="@id/mozac_browser_tabstray_url" />
+
     <TextView
         android:id="@+id/mozac_browser_tabstray_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="24dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="2dp"
         android:ellipsize="end"
         android:textColor="@color/fx_mobile_text_color_primary"
         android:textSize="16sp"
         android:maxLines="2"
         tools:text="Firefox"
+        app:layout_goneMarginStart="12dp"
         app:layout_constraintEnd_toStartOf="@id/mozac_browser_tabstray_close"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/mozac_browser_tabstray_card"
+        app:layout_constraintStart_toEndOf="@id/mozac_browser_tabstray_favicon_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/mozac_browser_tabstray_url" />
 
