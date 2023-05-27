@@ -25,13 +25,16 @@ internal object TabListReducer {
                 requireUniqueTab(state, action.tab)
 
                 val updatedTabList = if (action.tab.parentId != null) {
-                    val parentIndex = state.tabs.indexOfFirst { it.id == action.tab.parentId }
-                    if (parentIndex == -1) {
-                        throw IllegalArgumentException("The parent does not exist")
+                    val lastChildOrParentIndex =  state.tabs.indexOfLast {
+                        it.parentId == action.tab.parentId || it.id == action.tab.parentId
+                    }
+
+                    if (lastChildOrParentIndex == -1) {
+                        throw IllegalArgumentException("Parent or last child do not exist")
                     }
 
                     // Add the child tab next to its parent
-                    val childIndex = parentIndex + 1
+                    val childIndex = lastChildOrParentIndex + 1
                     state.tabs.subList(0, childIndex) + action.tab + state.tabs.subList(childIndex, state.tabs.size)
                 } else {
                     state.tabs + action.tab
