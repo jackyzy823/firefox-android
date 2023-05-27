@@ -68,6 +68,7 @@ object FenixVersions {
     // keep in sync with the versions used in AS.
     const val protobuf = "3.21.10"
     const val protobuf_plugin = "0.9.3"
+    const val constraint_layout_compose = "1.0.1"
 }
 
 @Suppress("unused")
@@ -122,7 +123,8 @@ object FenixDependencies {
     const val androidx_work_testing = "androidx.work:work-testing:${FenixVersions.androidx_work}"
     const val androidx_datastore = "androidx.datastore:datastore:${FenixVersions.androidx_datastore}"
     const val androidx_data_store_preferences = "androidx.datastore:datastore-preferences:${FenixVersions.androidx_datastore_preferences}"
-
+    const val androidx_constraint_layout_compose =
+        "androidx.constraintlayout:constraintlayout-compose:${FenixVersions.constraint_layout_compose}"
     const val google_material = "com.google.android.material:material:${FenixVersions.google_material}"
     const val google_accompanist_drawablepainter = "com.google.accompanist:accompanist-drawablepainter:${FenixVersions.google_accompanist}"
 

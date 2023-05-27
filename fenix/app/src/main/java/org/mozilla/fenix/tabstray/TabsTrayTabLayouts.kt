@@ -167,34 +167,36 @@ private fun TabList(
     val tabListBottomPadding = dimensionResource(id = R.dimen.tab_tray_list_bottom_padding)
     val isInMultiSelectMode = selectionMode is TabsTrayState.Mode.Select
 
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-        state = state,
-    ) {
-        header?.let {
-            item {
-                header()
+    LazyColumnScrollbar(state) {
+        LazyColumn(
+            modifier = modifier.fillMaxSize(),
+            state = state,
+        ) {
+            header?.let {
+                item {
+                    header()
+                }
             }
-        }
 
-        items(
-            items = tabs,
-            key = { tab -> tab.id },
-        ) { tab ->
-            TabListItem(
-                tab = tab,
-                isSelected = tab.id == selectedTabId,
-                multiSelectionEnabled = isInMultiSelectMode,
-                multiSelectionSelected = selectionMode.selectedTabs.contains(tab),
-                onCloseClick = onTabClose,
-                onMediaClick = onTabMediaClick,
-                onClick = onTabClick,
-                onLongClick = onTabLongClick,
-            )
-        }
+            items(
+                items = tabs,
+                key = { tab -> tab.id },
+            ) { tab ->
+                TabListItem(
+                    tab = tab,
+                    isSelected = tab.id == selectedTabId,
+                    multiSelectionEnabled = isInMultiSelectMode,
+                    multiSelectionSelected = selectionMode.selectedTabs.contains(tab),
+                    onCloseClick = onTabClose,
+                    onMediaClick = onTabMediaClick,
+                    onClick = onTabClick,
+                    onLongClick = onTabLongClick,
+                )
+            }
 
-        item {
-            Spacer(modifier = Modifier.height(tabListBottomPadding))
+            item {
+                Spacer(modifier = Modifier.height(tabListBottomPadding))
+            }
         }
     }
 }
