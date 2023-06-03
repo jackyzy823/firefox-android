@@ -520,7 +520,7 @@ class GeckoEngineSession(
         geckoSession.finder.find(null, findFlags).then { result: GeckoSession.FinderResult? ->
             result?.let {
                 val activeMatchOrdinal = if (it.current > 0) it.current - 1 else it.current
-                notifyObservers { onFindResult(activeMatchOrdinal, it.total, true) }
+                notifyObservers { onFindResult(activeMatchOrdinal, it.total, result.found && result.total != 0) }
             }
             GeckoResult<Void>()
         }

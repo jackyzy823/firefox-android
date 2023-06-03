@@ -100,14 +100,19 @@ class FindInPageBar @JvmOverloads constructor(
 
     override fun displayResult(result: FindResultState) {
         with(result) {
-            val ordinal = if (numberOfMatches > 0) activeMatchOrdinal + 1 else activeMatchOrdinal
-            resultsCountTextView.text = String.format(resultFormat, ordinal, numberOfMatches)
-            resultsCountTextView.setTextColorIfNotDefaultValue(
-                if (numberOfMatches > 0) styling.resultCountTextColor else styling.resultNoMatchesTextColor,
-            )
-            val accessibilityLabel = String.format(accessibilityFormat, ordinal, numberOfMatches)
-            resultsCountTextView.contentDescription = accessibilityLabel
-            announceForAccessibility(accessibilityLabel)
+            if (!isDoneCounting) {
+                resultsCountTextView.text = null
+                resultsCountTextView.contentDescription = null
+            } else {
+                val ordinal = if (numberOfMatches > 0) activeMatchOrdinal + 1 else activeMatchOrdinal
+                resultsCountTextView.text = String.format(resultFormat, ordinal, numberOfMatches)
+                resultsCountTextView.setTextColorIfNotDefaultValue(
+                    if (numberOfMatches > 0) styling.resultCountTextColor else styling.resultNoMatchesTextColor,
+                )
+                val accessibilityLabel = String.format(accessibilityFormat, ordinal, numberOfMatches)
+                resultsCountTextView.contentDescription = accessibilityLabel
+                announceForAccessibility(accessibilityLabel)
+            }
         }
     }
 
