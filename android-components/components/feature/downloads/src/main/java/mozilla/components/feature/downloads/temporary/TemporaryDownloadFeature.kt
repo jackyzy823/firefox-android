@@ -147,5 +147,5 @@ abstract class TemporaryDownloadFeature(
                     logger.warn("$action failed: $throwable")
                 }
             }
-        }
+        } + IO
 }
