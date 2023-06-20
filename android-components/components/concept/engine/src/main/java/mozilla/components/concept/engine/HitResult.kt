@@ -13,7 +13,11 @@ sealed class HitResult(open val src: String) {
     /**
      * Default type if we're unable to match the type to anything. It may or may not have a src.
      */
-    data class UNKNOWN(override val src: String) : HitResult(src)
+    data class UNKNOWN(
+        override val src: String,
+        val title: String? = null,
+        val textContent: String? = null,
+    ) : HitResult(src)
 
     /**
      * If the HTML element was of type 'HTMLImageElement'.
