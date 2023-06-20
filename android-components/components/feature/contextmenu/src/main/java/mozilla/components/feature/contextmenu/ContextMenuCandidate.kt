@@ -583,6 +583,31 @@ data class ContextMenuCandidate(
         )
 
         /**
+         * Context Menu item: "Bookmark Link".
+         *
+         * @param context [Context] used for various system interactions.
+         * @param bookmarkTapped Callback for adding bookmark operation.
+         * @param additionalValidation Callback for the final validation in deciding whether this menu option
+         * will be shown. Will only be called if all the intrinsic validations passed.
+         */
+        fun createBookmarkLinkCandidate(
+            context: Context,
+            bookmarkTapped: (url: String, title: String) -> Unit,
+            additionalValidation: (SessionState, HitResult) -> Boolean = { _, _ -> true },
+        ) = ContextMenuCandidate(
+            id = "mozac.feature.contextmenu.bookmark_link",
+            label = context.getString(R.string.mozac_feature_contextmenu_bookmark_link),
+            showFor = { tab, hitResult ->
+                (hitResult.getText().isNotBlank() || hitResult.getTitle().isNotBlank()) &&
+                    additionalValidation(tab, hitResult)
+            },
+            action = { _, hitResult ->
+                val title = if (hitResult.getTitle().isNotBlank()) hitResult.getTitle() else hitResult.getText()
+                bookmarkTapped(hitResult.getLink(), title)
+            },
+        )
+
+        /**
          * Context Menu item: "Copy Image Location".
          *
          * @param context [Context] used for various system interactions.
@@ -696,6 +721,11 @@ internal fun HitResult.getLink(): String = when (this) {
 
 internal fun HitResult.getText(): String = when (this) {
     is HitResult.UNKNOWN -> textContent ?: ""
+    else -> ""
+}
+
+internal fun HitResult.getTitle(): String = when (this) {
+    is HitResult.UNKNOWN -> title ?: ""
     else -> ""
 }
 

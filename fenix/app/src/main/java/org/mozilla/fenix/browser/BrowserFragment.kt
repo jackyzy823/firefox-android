@@ -511,6 +511,13 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         ) + ContextMenuCandidate.createOpenInExternalAppCandidate(
             requireContext(),
             contextMenuCandidateAppLinksUseCases,
+        ) + ContextMenuCandidate.createBookmarkLinkCandidate(
+            requireContext(),
+            bookmarkTapped = { url: String, title: String ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    bookmarkTapped(url, title)
+                }
+            },
         )
     }
 
