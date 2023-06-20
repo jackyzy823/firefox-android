@@ -72,6 +72,7 @@ data class ContextMenuCandidate(
                 snackbarDelegate,
             ),
             createCopyLinkCandidate(context, snackBarParentView, snackbarDelegate),
+            createCopyLinkTextCandidate(context, snackBarParentView, snackbarDelegate),
             createDownloadLinkCandidate(context, contextMenuUseCases),
             createShareLinkCandidate(context),
             createShareImageCandidate(context, contextMenuUseCases),
@@ -550,6 +551,38 @@ data class ContextMenuCandidate(
         )
 
         /**
+         * Context Menu item: "Copy Link Text".
+         *
+         * @param context [Context] used for various system interactions.
+         * @param snackBarParentView The view in which to find a suitable parent for displaying the `Snackbar`.
+         * @param snackbarDelegate [SnackbarDelegate] used to actually show a `Snackbar`.
+         * @param additionalValidation Callback for the final validation in deciding whether this menu option
+         * will be shown. Will only be called if all the intrinsic validations passed.
+         */
+        fun createCopyLinkTextCandidate(
+            context: Context,
+            snackBarParentView: View,
+            snackbarDelegate: SnackbarDelegate = DefaultSnackbarDelegate(),
+            additionalValidation: (SessionState, HitResult) -> Boolean = { _, _ -> true },
+        ) = ContextMenuCandidate(
+            id = "mozac.feature.contextmenu.copy_link_text",
+            label = context.getString(R.string.mozac_feature_contextmenu_copy_link_text),
+            showFor = { tab, hitResult ->
+                hitResult.getText().isNotBlank() && additionalValidation(tab, hitResult)
+            },
+            action = { _, hitResult ->
+                clipPlainText(
+                    context,
+                    hitResult.getText(),
+                    hitResult.getText(),
+                    R.string.mozac_feature_contextmenu_snackbar_link_text_copied,
+                    snackBarParentView,
+                    snackbarDelegate,
+                )
+            },
+        )
+
+        /**
          * Context Menu item: "Copy Image Location".
          *
          * @param context [Context] used for various system interactions.
@@ -659,6 +692,11 @@ internal fun HitResult.getLink(): String = when (this) {
     is HitResult.AUDIO ->
         if (title.isNullOrBlank()) src else title.toString()
     else -> "about:blank"
+}
+
+internal fun HitResult.getText(): String = when (this) {
+    is HitResult.UNKNOWN -> textContent ?: ""
+    else -> ""
 }
 
 @VisibleForTesting
