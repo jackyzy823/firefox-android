@@ -350,7 +350,7 @@ class TabsUseCases(
                 TabListAction.RestoreAction(
                     tabs,
                     selectTabId,
-                    TabListAction.RestoreAction.RestoreLocation.BEGINNING,
+                    TabListAction.RestoreAction.RestoreLocation.AT_INDEX,
                 ),
             )
         }
