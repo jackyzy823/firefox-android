@@ -6,6 +6,7 @@
 
 package mozilla.components.feature.prompts.ext
 
+import androidx.annotation.VisibleForTesting
 import java.util.Calendar
 import java.util.Date
 
@@ -48,6 +49,12 @@ internal var Calendar.month: Int
         set(Calendar.MONTH, value)
     }
 
+@VisibleForTesting
+internal const val DEFAULT_MIN_YEAR = 1
+
+@VisibleForTesting
+internal const val DEFAULT_MAX_YEAR = 9999
+
 internal fun Calendar.minMillisecond(): Int = getActualMinimum(Calendar.MILLISECOND)
 internal fun Calendar.maxMillisecond(): Int = getActualMaximum(Calendar.MILLISECOND)
 internal fun Calendar.minSecond(): Int = getActualMinimum(Calendar.SECOND)
@@ -60,6 +67,6 @@ internal fun Calendar.minMonth(): Int = getMinimum(Calendar.MONTH)
 internal fun Calendar.maxMonth(): Int = getActualMaximum(Calendar.MONTH)
 internal fun Calendar.minDay(): Int = getMinimum(Calendar.DAY_OF_MONTH)
 internal fun Calendar.maxDay(): Int = getActualMaximum(Calendar.DAY_OF_MONTH)
-internal fun Calendar.minYear(): Int = getMinimum(Calendar.YEAR)
-internal fun Calendar.maxYear(): Int = getActualMaximum(Calendar.YEAR)
+internal fun Calendar.minYear(): Int = DEFAULT_MIN_YEAR
+internal fun Calendar.maxYear(): Int = DEFAULT_MAX_YEAR
 internal fun now() = Calendar.getInstance()

@@ -10,6 +10,13 @@ import android.widget.NumberPicker
 import android.widget.ScrollView
 import androidx.annotation.VisibleForTesting
 import mozilla.components.feature.prompts.R
+import mozilla.components.feature.prompts.ext.day
+import mozilla.components.feature.prompts.ext.maxDay
+import mozilla.components.feature.prompts.ext.maxMonth
+import mozilla.components.feature.prompts.ext.maxYear
+import mozilla.components.feature.prompts.ext.minDay
+import mozilla.components.feature.prompts.ext.minMonth
+import mozilla.components.feature.prompts.ext.minYear
 import mozilla.components.feature.prompts.ext.month
 import mozilla.components.feature.prompts.ext.now
 import mozilla.components.feature.prompts.ext.year
@@ -155,23 +162,19 @@ internal class MonthAndYearPicker @JvmOverloads constructor(
         private const val SPEED_MONTH_SPINNER = 200L
         private const val SPEED_YEAR_SPINNER = 100L
 
-        @VisibleForTesting
-        internal const val DEFAULT_MAX_YEAR = 9999
-
-        @VisibleForTesting
-        internal const val DEFAULT_MIN_YEAR = 1
-
         internal fun getDefaultMinDate(): Calendar {
             return now().apply {
-                month = Calendar.JANUARY
-                year = DEFAULT_MIN_YEAR
+                month = minMonth()
+                year = minYear()
+                day = minDay()
             }
         }
 
         internal fun getDefaultMaxDate(): Calendar {
             return now().apply {
-                month = Calendar.DECEMBER
-                year = DEFAULT_MAX_YEAR
+                month = maxMonth()
+                year = maxYear()
+                day = maxDay()
             }
         }
     }

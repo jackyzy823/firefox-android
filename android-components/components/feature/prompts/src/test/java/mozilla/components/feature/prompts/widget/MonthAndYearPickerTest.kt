@@ -5,12 +5,12 @@
 package mozilla.components.feature.prompts.widget
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import mozilla.components.feature.prompts.ext.DEFAULT_MAX_YEAR
+import mozilla.components.feature.prompts.ext.DEFAULT_MIN_YEAR
 import mozilla.components.feature.prompts.ext.month
 import mozilla.components.feature.prompts.ext.now
 import mozilla.components.feature.prompts.ext.toCalendar
 import mozilla.components.feature.prompts.ext.year
-import mozilla.components.feature.prompts.widget.MonthAndYearPicker.Companion.DEFAULT_MAX_YEAR
-import mozilla.components.feature.prompts.widget.MonthAndYearPicker.Companion.DEFAULT_MIN_YEAR
 import mozilla.components.support.ktx.kotlin.toDate
 import mozilla.components.support.test.robolectric.testContext
 import org.junit.Assert.assertEquals
