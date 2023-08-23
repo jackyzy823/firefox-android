@@ -232,7 +232,7 @@ class EditBookmarkFragment : Fragment(R.layout.fragment_edit_bookmark), MenuProv
                             bookmarkNode?.let { bookmark ->
                                 FenixSnackbar.make(
                                     view = activity.getRootView()!!,
-                                    isDisplayedWithBrowserToolbar = args.requiresSnackbarPaddingForToolbar,
+                                    isDisplayedWithBrowserToolbar = true,
                                 )
                                     .setText(
                                         getString(

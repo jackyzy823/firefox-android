@@ -355,6 +355,7 @@ class BookmarkFragment : LibraryPageFragment<BookmarkNode>(), UserInteractionHan
                 undoPendingDeletion(selected)
             },
             operation = getDeleteOperation(eventType),
+            paddedForBottomToolbar = true,
         )
     }
 
@@ -417,6 +418,7 @@ class BookmarkFragment : LibraryPageFragment<BookmarkNode>(), UserInteractionHan
                             undoPendingDeletion(selected)
                         },
                         operation = getDeleteOperation(BookmarkRemoveType.FOLDER),
+                        paddedForBottomToolbar = true,
                     )
                 }
                 create().withCenterAlignedButtons()
