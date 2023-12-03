@@ -232,6 +232,7 @@ abstract class AbstractPrivateNotificationService(
         // that gets passed to onTaskRemoved().
         private val ignoreTaskComponentClasses = listOf(
             "org.mozilla.fenix.customtabs.ExternalAppBrowserActivity",
+            "org.mozilla.fenix.IntentReceiverActivity",
         )
     }
 }
