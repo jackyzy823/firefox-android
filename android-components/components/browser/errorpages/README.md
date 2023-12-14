@@ -59,6 +59,7 @@ val settings = DefaultSettings(
             session: EngineSession,
             errorType: ErrorType,
             uri: String?
+            isPrivate: Boolean,
         ): RequestInterceptor.ErrorResponse? =
              RequestInterceptor.ErrorResponse(ErrorPages.createErrorPage(context, errorType))
     }

@@ -54,6 +54,7 @@ class AppRequestInterceptor(
         session: EngineSession,
         errorType: ErrorType,
         uri: String?,
+        isPrivate: Boolean,
     ): RequestInterceptor.ErrorResponse? {
         val improvedErrorType = improveErrorType(errorType)
         val riskLevel = getRiskLevel(improvedErrorType)
@@ -67,6 +68,7 @@ class AppRequestInterceptor(
             htmlResource = riskLevel.htmlRes,
             titleOverride = { type -> getErrorPageTitle(context, type) },
             descriptionOverride = { type -> getErrorPageDescription(context, type) },
+            private = isPrivate,
         )
 
         return RequestInterceptor.ErrorResponse(errorPageUri)

@@ -139,7 +139,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('errorTryAgain').addEventListener('click', () => window.location.reload());
     document.getElementById('advancedButton').addEventListener('click', toggleAdvancedAndScroll);
-    document.getElementById('advancedPanelAcceptButton').addEventListener('click', () => acceptAndContinue(true));
+    const temporary = queryMap.private === "true";
+    document.getElementById('advancedPanelAcceptButton').addEventListener('click', () => acceptAndContinue(temporary));
     document.getElementById('continueHttp').addEventListener('click', () => document.reloadWithHttpsOnlyException());
 });
 

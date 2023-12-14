@@ -76,6 +76,7 @@ class AppContentInterceptor(
         session: EngineSession,
         errorType: ErrorType,
         uri: String?,
+        isPrivate: Boolean,
     ): RequestInterceptor.ErrorResponse {
         val errorPage = ErrorPages.createUrlEncodedErrorPage(
             context,
@@ -83,6 +84,7 @@ class AppContentInterceptor(
             uri,
             titleOverride = { type -> getErrorPageTitle(context, type) },
             descriptionOverride = { type -> getErrorPageDescription(context, type) },
+            private = isPrivate,
         )
         return RequestInterceptor.ErrorResponse(errorPage)
     }

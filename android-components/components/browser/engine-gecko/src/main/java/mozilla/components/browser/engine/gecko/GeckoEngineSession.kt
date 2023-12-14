@@ -1188,6 +1188,7 @@ class GeckoEngineSession(
                 this@GeckoEngineSession,
                 geckoErrorToErrorType(error.code),
                 uri,
+                privateMode,
             )
             return GeckoResult.fromValue(response?.uri)
         }

@@ -74,10 +74,16 @@ interface RequestInterceptor {
      * @param errorType The error that was provided by the engine related to the
      * type of error caused.
      * @param uri The uri that resulted in the error.
+     * @param isPrivate Indicates if the error was from a private session.
      * @return An [ErrorResponse] object containing content to display for the
      * provided error type.
      */
-    fun onErrorRequest(session: EngineSession, errorType: ErrorType, uri: String?): ErrorResponse? = null
+    fun onErrorRequest(
+        session: EngineSession,
+        errorType: ErrorType,
+        uri: String?,
+        isPrivate: Boolean = false,
+    ): ErrorResponse? = null
 
     /**
      * Returns whether or not this [RequestInterceptor] should intercept load
