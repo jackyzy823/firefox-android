@@ -92,6 +92,9 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                     toolbarLayout = browserToolbarView.view,
                     store = components.core.store,
                     selectTabUseCase = components.useCases.tabsUseCases.selectTab,
+                    toolbarPosition = context.settings().toolbarPosition,
+                    browsingModeManager = (activity as HomeActivity).browsingModeManager,
+                    navController = findNavController(),
                 ),
             )
         }
