@@ -78,6 +78,7 @@ internal class EngineViewPresenter(
         }
 
         if (engineSession == null) {
+            if (tab.engineState.initializing) { return }
             // This tab does not have an EngineSession that we can render yet. Let's dispatch an
             // action to request creating one. Once one was created and linked to this session, this
             // method will get invoked again.
