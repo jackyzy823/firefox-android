@@ -155,6 +155,7 @@ class Core(
             context,
             defaultSettings,
             geckoRuntime,
+            store,
         ).also {
             WebCompatFeature.install(it)
 

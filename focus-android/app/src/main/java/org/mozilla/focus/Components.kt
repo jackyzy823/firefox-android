@@ -126,7 +126,7 @@ class Components(
     }
 
     val engine: Engine by lazy {
-        engineOverride ?: EngineProvider.createEngine(context, engineDefaultSettings).apply {
+        engineOverride ?: EngineProvider.createEngine(context, engineDefaultSettings, store).apply {
             this@Components.settings.setupSafeBrowsing(this)
             WebCompatFeature.install(this)
             WebCompatReporterFeature.install(this, "focus-geckoview")

@@ -40,10 +40,10 @@ object EngineProvider {
         return runtime!!
     }
 
-    fun createEngine(context: Context, defaultSettings: DefaultSettings): Engine {
+    fun createEngine(context: Context, defaultSettings: DefaultSettings, store: BrowserStore): Engine {
         val runtime = getOrCreateRuntime(context)
 
-        return GeckoEngine(context, defaultSettings, runtime)
+        return GeckoEngine(context, defaultSettings, runtime, store)
     }
 
     fun createCookieBannerStorage(context: Context): GeckoCookieBannersStorage {
