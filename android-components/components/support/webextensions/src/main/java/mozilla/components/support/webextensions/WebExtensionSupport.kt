@@ -496,7 +496,7 @@ object WebExtensionSupport {
         } else {
             val tab = createTab(url)
             store.dispatch(TabListAction.AddTabAction(tab, selected))
-            store.dispatch(EngineAction.LinkEngineSessionAction(tab.id, engineSession))
+            store.dispatch(EngineAction.LinkEngineSessionAction(tab.id, engineSession, noParentReferrer = true))
             tab.id
         }
     }
