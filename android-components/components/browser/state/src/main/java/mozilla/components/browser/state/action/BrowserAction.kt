@@ -1147,6 +1147,7 @@ sealed class EngineAction : BrowserAction() {
         val url: String,
         val flags: EngineSession.LoadUrlFlags = EngineSession.LoadUrlFlags.none(),
         val additionalHeaders: Map<String, String>? = null,
+        val noParentReferrer: Boolean = false,
     ) : EngineAction(), ActionWithTab
 
     /**

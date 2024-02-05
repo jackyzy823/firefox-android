@@ -179,6 +179,7 @@ class GeckoEngineSession(
         parent: EngineSession?,
         flags: LoadUrlFlags,
         additionalHeaders: Map<String, String>?,
+        noParentReferrer: Boolean,
     ) {
         notifyObservers { onLoadUrl() }
 
@@ -206,7 +207,7 @@ class GeckoEngineSession(
                 .headerFilter(headerFilter)
         }
 
-        if (parent != null) {
+        if (parent != null && !noParentReferrer) {
             loader.referrer((parent as GeckoEngineSession).geckoSession)
         }
 

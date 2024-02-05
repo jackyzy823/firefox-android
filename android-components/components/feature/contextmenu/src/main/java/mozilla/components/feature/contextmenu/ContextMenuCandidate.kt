@@ -168,6 +168,7 @@ data class ContextMenuCandidate(
                     startLoading = true,
                     parentId = parent.id,
                     private = true,
+                    noParentReferrer = true,
                 )
 
                 snackbarDelegate.show(

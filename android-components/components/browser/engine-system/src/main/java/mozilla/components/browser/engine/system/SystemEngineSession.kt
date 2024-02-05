@@ -83,6 +83,7 @@ class SystemEngineSession(
         parent: EngineSession?,
         flags: LoadUrlFlags,
         additionalHeaders: Map<String, String>?,
+        noParentReferrer: Boolean,
     ) {
         notifyObservers { onLoadUrl() }
 

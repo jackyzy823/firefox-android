@@ -1031,6 +1031,7 @@ open class HomeActivity : LocaleAwareAppCompatActivity(), NavHostActivity {
                 components.useCases.sessionUseCases.loadUrl(
                     url = searchTermOrURL.toNormalizedUrl(),
                     flags = flags,
+                    noParentReferrer = true,
                 )
                 components.core.store.state.selectedTabId
             }

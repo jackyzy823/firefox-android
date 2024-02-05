@@ -37,6 +37,7 @@ class SessionUseCases(
             url: String,
             flags: LoadUrlFlags = LoadUrlFlags.none(),
             additionalHeaders: Map<String, String>? = null,
+            noParentReferrer: Boolean = false,
         )
     }
 
@@ -58,8 +59,9 @@ class SessionUseCases(
             url: String,
             flags: LoadUrlFlags,
             additionalHeaders: Map<String, String>?,
+            noParentReferrer: Boolean,
         ) {
-            this.invoke(url, store.state.selectedTabId, flags, additionalHeaders)
+            this.invoke(url, store.state.selectedTabId, flags, additionalHeaders, noParentReferrer)
         }
 
         /**
@@ -77,6 +79,7 @@ class SessionUseCases(
             sessionId: String? = null,
             flags: LoadUrlFlags = LoadUrlFlags.none(),
             additionalHeaders: Map<String, String>? = null,
+            noParentReferrer: Boolean = false,
         ) {
             val loadSessionId = sessionId
                 ?: store.state.selectedTabId
@@ -98,6 +101,7 @@ class SessionUseCases(
                     parent = parentEngineSession,
                     flags = flags,
                     additionalHeaders = additionalHeaders,
+                    noParentReferrer = noParentReferrer,
                 )
                 store.dispatch(
                     EngineAction.OptimizedLoadUrlTriggeredAction(

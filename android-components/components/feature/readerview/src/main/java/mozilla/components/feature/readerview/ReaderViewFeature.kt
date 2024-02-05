@@ -145,7 +145,7 @@ class ReaderViewFeature(
                     return@let
                 }
 
-                store.dispatch(EngineAction.LoadUrlAction(it.id, readerUrl))
+                store.dispatch(EngineAction.LoadUrlAction(it.id, readerUrl, noParentReferrer = true))
                 store.dispatch(ReaderAction.UpdateReaderActiveAction(it.id, true))
             }
         }

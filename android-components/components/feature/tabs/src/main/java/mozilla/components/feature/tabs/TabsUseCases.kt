@@ -127,8 +127,16 @@ class TabsUseCases(
             url: String,
             flags: LoadUrlFlags,
             additionalHeaders: Map<String, String>?,
+            noParentReferrer: Boolean,
         ) {
-            this.invoke(url, selectTab = true, startLoading = true, parentId = null, flags = flags)
+            this.invoke(
+                url,
+                selectTab = true,
+                startLoading = true,
+                parentId = null,
+                flags = flags,
+                noParentReferrer = noParentReferrer,
+            )
         }
 
         /**
@@ -167,6 +175,7 @@ class TabsUseCases(
             isSearch: Boolean = false,
             searchEngineName: String? = null,
             additionalHeaders: Map<String, String>? = null,
+            noParentReferrer: Boolean = false,
         ): String {
             val tab = createTab(
                 url = url,
@@ -194,6 +203,7 @@ class TabsUseCases(
                         url = url,
                         flags = flags,
                         additionalHeaders = additionalHeaders,
+                        noParentReferrer = noParentReferrer,
                     ),
                 )
             }

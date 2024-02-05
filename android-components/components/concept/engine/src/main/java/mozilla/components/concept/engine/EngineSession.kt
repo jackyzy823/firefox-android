@@ -782,6 +782,7 @@ abstract class EngineSession(
         parent: EngineSession? = null,
         flags: LoadUrlFlags = LoadUrlFlags.none(),
         additionalHeaders: Map<String, String>? = null,
+        noParentReferrer: Boolean = false,
     )
 
     /**
