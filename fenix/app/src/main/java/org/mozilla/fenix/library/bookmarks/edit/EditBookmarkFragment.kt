@@ -66,6 +66,7 @@ class EditBookmarkFragment : Fragment(R.layout.fragment_edit_bookmark), MenuProv
     private var bookmarkNode: BookmarkNode? = null
     private var bookmarkParent: BookmarkNode? = null
     private var initialParentGuid: String? = null
+    private var firstRun: Boolean = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,12 +89,15 @@ class EditBookmarkFragment : Fragment(R.layout.fragment_edit_bookmark), MenuProv
                 initialParentGuid = bookmarkNode?.parentGuid
             }
 
+            // Could unified firstRun with initialParentGuid?
             bookmarkParent = withContext(IO) {
-                // Use user-selected parent folder if it's set, or node's current parent otherwise.
-                if (sharedViewModel.selectedFolder != null) {
-                    sharedViewModel.selectedFolder
+                // When entering first time, Use node's current parent if it's set.
+                if (firstRun) {
+                    firstRun = false
+                    bookmarkNode?.parentGuid?.let { bookmarksStorage.getBookmark(it) } ?: sharedViewModel.selectedFolder
                 } else {
-                    bookmarkNode?.parentGuid?.let { bookmarksStorage.getBookmark(it) }
+                    // Use user-selected parent folder if it's set, or node's current parent otherwise.
+                    sharedViewModel.selectedFolder ?: bookmarkNode?.parentGuid?.let { bookmarksStorage.getBookmark(it) }
                 }
             }
 
@@ -266,6 +270,7 @@ class EditBookmarkFragment : Fragment(R.layout.fragment_edit_bookmark), MenuProv
                     if (title != bookmarkNode?.title || url != bookmarkNode?.url) {
                         BookmarksManagement.edited.record(NoExtras())
                     }
+
                     val parentGuid =
                         sharedViewModel.selectedFolder?.guid ?: bookmarkNode!!.parentGuid
                     val parentChanged = initialParentGuid != parentGuid
