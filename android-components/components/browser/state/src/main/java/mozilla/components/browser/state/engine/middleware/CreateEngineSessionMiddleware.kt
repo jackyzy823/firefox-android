@@ -68,6 +68,7 @@ internal class CreateEngineSessionMiddleware(
                 logger,
                 store,
                 action.tabId,
+                noParentReferrer = action.noParentReferrer,
             )
 
             action.followupAction?.let {
@@ -84,6 +85,7 @@ private fun getOrCreateEngineSession(
     logger: Logger,
     store: Store<BrowserState, BrowserAction>,
     tabId: String,
+    noParentReferrer: Boolean = false,
 ): EngineSession? {
     val tab = store.state.findTabOrCustomTab(tabId)
     if (tab == null) {
@@ -101,7 +103,7 @@ private fun getOrCreateEngineSession(
         return it
     }
 
-    return createEngineSession(engine, logger, store, tab)
+    return createEngineSession(engine, logger, store, tab, noParentReferrer = noParentReferrer)
 }
 
 @MainThread
@@ -110,6 +112,7 @@ private fun createEngineSession(
     logger: Logger,
     store: Store<BrowserState, BrowserAction>,
     tab: SessionState,
+    noParentReferrer: Boolean = false,
 ): EngineSession {
     val engineSession = engine.createSession(tab.content.private, tab.contextId)
     logger.debug("Created engine session for tab ${tab.id}")
@@ -126,6 +129,7 @@ private fun createEngineSession(
             tab.id,
             engineSession,
             skipLoading = skipLoading,
+            noParentReferrer = noParentReferrer,
         ),
     )
 

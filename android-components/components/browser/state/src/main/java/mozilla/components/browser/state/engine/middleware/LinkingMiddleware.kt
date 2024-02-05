@@ -58,7 +58,7 @@ internal class LinkingMiddleware(
         when (action) {
             is EngineAction.LinkEngineSessionAction -> {
                 context.state.findTabOrCustomTab(action.tabId)?.let { tab ->
-                    engineObserver = link(context, action.engineSession, tab, action.skipLoading)
+                    engineObserver = link(context, action.engineSession, tab, action.skipLoading, action.noParentReferrer)
                 }
             }
             else -> {
@@ -77,6 +77,7 @@ internal class LinkingMiddleware(
         engineSession: EngineSession,
         tab: SessionState,
         skipLoading: Boolean = true,
+        noParentReferrer: Boolean = false,
     ): Pair<String, EngineObserver> {
         val observer = EngineObserver(tab.id, context.store)
         engineSession.register(observer)
@@ -89,7 +90,7 @@ internal class LinkingMiddleware(
             // The parent tab/session is used as a referrer which is not accurate
             // for extension pages. The extension page is not loaded by the parent
             // tab, but opened by an extension e.g. via browser.tabs.update.
-            performLoadOnMainThread(engineSession, tab.content.url, loadFlags = tab.engineState.initialLoadFlags)
+            performLoadOnMainThread(engineSession, tab.content.url, loadFlags = tab.engineState.initialLoadFlags, noParentReferrer = true)
         } else {
             val parentEngineSession = if (tab is TabSessionState) {
                 tab.parentId?.let { context.state.findTabOrCustomTab(it)?.engineState?.engineSession }
@@ -103,6 +104,7 @@ internal class LinkingMiddleware(
                 parent = parentEngineSession,
                 loadFlags = tab.engineState.initialLoadFlags,
                 additionalHeaders = tab.engineState.initialAdditionalHeaders,
+                noParentReferrer = noParentReferrer,
             )
         }
 
@@ -115,12 +117,14 @@ internal class LinkingMiddleware(
         parent: EngineSession? = null,
         loadFlags: EngineSession.LoadUrlFlags,
         additionalHeaders: Map<String, String>? = null,
+        noParentReferrer: Boolean = false,
     ) = scope.launch {
         engineSession.loadUrl(
             url = url,
             parent = parent,
             flags = loadFlags,
             additionalHeaders = additionalHeaders,
+            noParentReferrer = noParentReferrer
         )
     }
 

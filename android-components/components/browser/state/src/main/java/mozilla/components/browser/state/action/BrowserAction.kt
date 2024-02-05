@@ -1137,6 +1137,7 @@ sealed class EngineAction : BrowserAction() {
         override val tabId: String,
         val skipLoading: Boolean = false,
         val followupAction: BrowserAction? = null,
+        val noParentReferrer: Boolean = false,
     ) : EngineAction(), ActionWithTab
 
     /**
@@ -1285,6 +1286,7 @@ sealed class EngineAction : BrowserAction() {
         val engineSession: EngineSession,
         val timestamp: Long = Clock.elapsedRealtime(),
         val skipLoading: Boolean = false,
+        val noParentReferrer: Boolean = false,
     ) : EngineAction(), ActionWithTab
 
     /**
