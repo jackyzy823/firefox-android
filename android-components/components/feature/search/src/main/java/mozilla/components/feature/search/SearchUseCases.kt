@@ -179,6 +179,7 @@ class SearchUseCases(
                 private = isPrivate,
                 isSearch = true,
                 additionalHeaders = additionalHeaders,
+                noParentReferrer = true,
             )
 
             store.dispatch(ContentAction.UpdateSearchTermsAction(id, searchTerms))

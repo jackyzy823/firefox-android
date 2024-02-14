@@ -49,6 +49,7 @@ class WindowFeature(
                                 parentId = state.id,
                                 engineSession = windowRequest.prepare(),
                                 private = state.content.private,
+                                noParentReferrer = true,
                             )
                             windowRequest.start()
                         }
